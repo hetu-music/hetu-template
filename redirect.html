@@ -4,180 +4,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>正在跳转 | Redirecting</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'media',
-            theme: {
-                extend: {
-                    colors: {
-                        slate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                        },
-                        blue: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-                        serif: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
-                    },
-                    keyframes: {
-                        'spin-slow': {
-                            '0%': { transform: 'rotate(0deg)' },
-                            '100%': { transform: 'rotate(360deg)' },
-                        },
-                        'fade-in-up': {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
-                    animation: {
-                        'spin-slow': 'spin-slow 10s linear infinite',
-                        'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
-                    }
-                }
+    <meta name="color-scheme" content="light dark">
+    <meta name="robots" content="noindex">
+    <!-- 脚本没跑起来时的兜底 -->
+    <meta http-equiv="refresh" content="6;url=https://hetu-music.com">
+    <title>移步 · 河图作品勘鉴</title>
+    <!--
+        大陆以外的访客落到这一页，几秒后换到 hetu-music.com。
+        文案改动时，页面里的简体与脚本里的两组文案（简体、繁体）要一起改。
+        独立文件，不依赖站内构建与任何外部资源，样式全部写在这里。
+        视觉同全站（DESIGN.md）：页面底色、墨蓝强调色、宋体标题、文字按钮，不用卡片与阴影。
+    -->
+    <style>
+        :root {
+            --bg: #FAFAFA;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --faint: #94a3b8;
+            --rule: #e2e8f0;
+            --tone: #394c7f;
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --serif: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, SimSun, ui-serif, serif;
+            --sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0B0F19;
+                --ink: #f1f5f9;
+                --muted: #94a3b8;
+                --faint: #64748b;
+                --rule: #1e293b;
+                --tone: #95a8da;
             }
         }
-    </script>
-    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
         body {
-            transition: background-color 0.5s ease, color 0.5s ease;
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: color-mix(in srgb, var(--tone) 20%, transparent);
+        }
+
+        main {
+            width: 100%;
+            max-width: 26rem;
+            animation: rise 700ms var(--ease) both;
+        }
+
+        .eyebrow {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 12px;
+            letter-spacing: 0.4em;
+            color: var(--tone);
+        }
+
+        h1 {
+            margin: 20px 0 0;
+            font-family: var(--serif);
+            font-size: clamp(28px, 7vw, 36px);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            line-height: 1.3;
+        }
+
+        /* 题记：前面一个墨蓝的「>」，同首页副标题 */
+        .lead {
+            display: flex;
+            gap: 10px;
+            margin: 16px 0 0;
+            font-size: 14px;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+        }
+
+        .lead::before {
+            content: ">";
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            color: var(--tone);
+        }
+
+        .dest {
+            margin: 40px 0 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .label {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            color: var(--faint);
+        }
+
+        .host {
+            font-family: var(--serif);
+            font-size: 18px;
+            letter-spacing: 0.04em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        /* 倒计时：一道细线，墨蓝从右往左退 */
+        .rule {
+            position: relative;
+            height: 1px;
+            margin-top: 12px;
+            background: var(--rule);
+            overflow: hidden;
+        }
+
+        .rule::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--tone);
+            transform-origin: left;
+            animation: drain var(--duration, 5s) linear both;
+        }
+
+        .foot {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: var(--faint);
+        }
+
+        .count {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .go {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+            font-size: 14px;
+            letter-spacing: 0.15em;
+            color: var(--tone);
+            text-decoration: none;
+            transition: opacity 200ms var(--ease);
+        }
+
+        .go:hover {
+            opacity: 0.75;
+        }
+
+        .go:focus-visible {
+            outline: 1px solid var(--tone);
+            outline-offset: 4px;
+        }
+
+        .go svg {
+            transition: transform 300ms var(--ease);
+        }
+
+        .go:hover svg {
+            transform: translateX(3px);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+        }
+
+        @keyframes drain {
+            from {
+                transform: scaleX(1);
+            }
+
+            to {
+                transform: scaleX(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            main,
+            .rule::after,
+            .go svg {
+                animation: none;
+                transition: none;
+            }
         }
     </style>
 </head>
 
-<body
-    class="min-h-screen bg-[#FAFAFA] dark:bg-[#0B0F19] flex items-center justify-center p-6 antialiased selection:bg-blue-100 dark:selection:bg-blue-900">
+<body>
+    <main>
+        <p class="eyebrow" data-i18n="site">河图作品勘鉴</p>
+        <h1 data-i18n="title">检测到您不在中国大陆</h1>
+        <p class="lead" data-i18n="lead">正在为您优化线路......</p>
 
-    <div class="max-w-md w-full text-center space-y-8 animate-fade-in-up">
-
-        <!-- Icon / Visual -->
-        <div class="relative inline-block group">
-            <div
-                class="absolute inset-0 bg-blue-500/20 dark:bg-blue-500/10 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500">
-            </div>
-            <div
-                class="relative bg-white dark:bg-slate-800/50 p-6 rounded-full ring-1 ring-slate-200 dark:ring-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none">
-                <!-- Globe Icon (Lucide style) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                    class="text-blue-600 dark:text-blue-400 animate-spin-slow">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path
-                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                    </path>
-                </svg>
-            </div>
+        <div class="dest">
+            <span class="label" data-i18n="label">移步</span>
+            <a class="host" href="https://hetu-music.com">hetu-music.com</a>
         </div>
+        <div class="rule" aria-hidden="true"></div>
 
-        <!-- Text Content -->
-        <div class="space-y-4">
-            <h1 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-slate-50 tracking-tight">
-                正在优化访问线路
-            </h1>
-            <div class="space-y-2">
-                <p class="text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
-                    检测到您位于中国大陆以外地区，为确保流畅体验<br />
-                    即将为您自动跳转至：
-                </p>
-                <p class="text-xl font-bold font-mono text-blue-600 dark:text-blue-400 tracking-wide">
-                    hetu-music.com
-                </p>
-            </div>
-        </div>
-
-        <!-- Countdown / Progress -->
-        <div class="flex flex-col items-center gap-4 pt-2">
-            <div class="flex items-center gap-2 text-base font-medium text-slate-500 dark:text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="animate-pulse">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <span id="countdown-text">5 秒后自动跳转</span>
-            </div>
-
-            <!-- Custom Progress Bar -->
-            <div class="h-1 w-48 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                <div id="progress-bar" class="h-full bg-blue-600 rounded-full" style="width: 100%"></div>
-            </div>
-        </div>
-
-        <!-- Action Button -->
-        <div class="pt-4">
-            <a href="https://hetu-music.com"
-                class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 shadow-lg shadow-blue-200/50 dark:shadow-none hover:shadow-blue-300/50 hover:-translate-y-0.5">
-                <span>立即跳转</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="foot">
+            <span class="count" id="count" aria-live="polite">5 秒后跳转</span>
+            <a class="go" href="https://hetu-music.com">
+                <span data-i18n="go">现在跳转</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                 </svg>
             </a>
-
-            <p class="mt-6 text-xs text-slate-400 dark:text-slate-600 font-light">
-                如果页面没有自动跳转，请点击上方按钮
-            </p>
         </div>
-
-    </div>
+    </main>
 
     <script>
-        const targetUrl = 'https://hetu-music.com';
-        const duration = 5; // seconds
-        let timeLeft = duration;
+        (function () {
+            // 不论从哪个路径进来，一律跳到首页
+            var TARGET = 'https://hetu-music.com';
+            var DURATION = 5; // 秒
 
-        const progressBar = document.getElementById('progress-bar');
-        const countdownText = document.getElementById('countdown-text');
+            // 繁体用户（台港澳）显示繁体
+            var lang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+            var hant = /^zh-(tw|hk|mo|hant)/i.test(lang);
+            var text = hant
+                ? {
+                    doc: '移步 · 河圖作品勘鑒',
+                    site: '河圖作品勘鑒',
+                    title: '檢測到您不在中國大陸',
+                    lead: '正在為您優化線路......',
+                    label: '移步',
+                    go: '現在跳轉',
+                    count: function (n) { return n + ' 秒後跳轉'; },
+                    now: '正在跳轉…'
+                }
+                : {
+                    doc: '移步 · 河图作品勘鉴',
+                    site: '河图作品勘鉴',
+                    title: '检测到您不在中国大陆',
+                    lead: '正在为您优化线路......',
+                    label: '移步',
+                    go: '现在跳转',
+                    count: function (n) { return n + ' 秒后跳转'; },
+                    now: '正在跳转…'
+                };
 
-        // Start smooth animation
-        // Add a small delay to ensure the initial 100% width is rendered before starting transition
-        setTimeout(() => {
-            progressBar.style.transition = `width ${duration}s linear`;
-            progressBar.style.width = '0%';
-        }, 50);
-
-        // Timer logic (Text only)
-        const interval = setInterval(() => {
-            timeLeft--;
-
-            // Update Text
-            if (timeLeft >= 0) {
-                countdownText.innerText = `${timeLeft} 秒后自动跳转`;
+            if (hant) {
+                document.documentElement.lang = 'zh-TW';
+                document.title = text.doc;
+                var nodes = document.querySelectorAll('[data-i18n]');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].textContent = text[nodes[i].getAttribute('data-i18n')];
+                }
             }
 
-            if (timeLeft <= 0) {
-                clearInterval(interval);
-                window.location.href = targetUrl;
-            }
-        }, 1000);
+            var count = document.getElementById('count');
+            document.documentElement.style.setProperty('--duration', DURATION + 's');
 
-        // Fallback safety
-        setTimeout(() => {
-            window.location.href = targetUrl;
-        }, (duration + 1) * 1000);
+            // 按实际经过的时间算，后台标签页里计时器被拖慢也不会走偏
+            var start = Date.now();
+            var last = DURATION;
+            count.textContent = text.count(DURATION);
+
+            var timer = setInterval(function () {
+                var left = Math.max(0, DURATION - Math.floor((Date.now() - start) / 1000));
+                if (left !== last) {
+                    last = left;
+                    count.textContent = left > 0 ? text.count(left) : text.now;
+                }
+                if (left <= 0) {
+                    clearInterval(timer);
+                    // replace：不在历史里留下这一页，返回时不会再被弹回来
+                    location.replace(TARGET);
+                }
+            }, 200);
+        })();
     </script>
 </body>
 
