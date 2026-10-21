@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>确认更改河图作品勘鉴账号邮箱</title>
+    <style>
+        /* Base styles for email client compatibility */
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #fafafa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .header {
+            padding: 50px 40px 30px;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', 'Noto Serif SC', serif;
+            font-size: 32px;
+            color: #1a1a1a;
+            margin: 0;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .content {
+            padding: 0 40px 40px;
+            color: #444;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .greeting {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 20px;
+        }
+
+        /* OTP Code Styles */
+        /* Centered UI Hierarchy */
+        .instruction-text {
+            margin: 48px 0 16px;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Refined Compact OTP Box */
+        .otp-box {
+            background-color: #f0f7ff;
+            border: 2px dashed #3b82f6;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px auto;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .otp-code {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 36px;
+            font-weight: 800;
+            color: #2563eb;
+            letter-spacing: 8px;
+            margin: 0;
+            padding-left: 8px;
+        }
+
+        /* Email Change Summary */
+        .change-box {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 24px 0 0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .change-label {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .change-email {
+            color: #111;
+            font-weight: 600;
+            word-break: break-all;
+            margin-bottom: 8px;
+        }
+
+        .change-email:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer {
+            padding: 30px 40px 50px;
+            text-align: center;
+            background-color: #fcfcfc;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #999;
+            margin: 5px 0;
+            text-decoration: none;
+        }
+
+        .security-note {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+            border-left: 4px solid #3b82f6;
+        }
+
+        @media only screen and (max-width: 640px) {
+            .container {
+                margin: 0;
+                width: 100% !important;
+                border-radius: 0;
+            }
+
+            .otp-code {
+                font-size: 36px;
+                letter-spacing: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fafafa;">
+        <tr>
+            <td align="center">
+                <div class="container">
+                    <!-- Brand Identity Header -->
+                    <div class="header">
+                        <h1 class="brand-name">河图作品勘鉴</h1>
+                        <div class="subtitle">Hetu Project Appreciation</div>
+                    </div>
+                    <!-- Main Content Body -->
+                    <div class="content">
+                        <div class="greeting">更改账号邮箱</div>
+                        <p>
+                            你正在更改「河图作品勘鉴」的账号邮箱。原邮箱和新邮箱会各收到一封验证码邮件，两个验证码都填写后，更改才会生效。
+                        </p>
+
+                        <!-- Email Change Summary -->
+                        <div class="change-box">
+                            <div class="change-label">原邮箱</div>
+                            <div class="change-email">{{ .Email }}</div>
+                            <div class="change-label">新邮箱</div>
+                            <div class="change-email">{{ .NewEmail }}</div>
+                        </div>
+
+                        <div class="instruction-text" style="margin-top: 32px;">
+                            请在页面上输入这封邮件里的验证码
+                        </div>
+
+                        <!-- Refined Compact OTP Box -->
+                        <div class="otp-box">
+                            <div class="otp-code">{{ .Token }}</div>
+                        </div>
+
+                        <div class="security-note">
+                            如果这不是你本人的操作，请不要填写验证码，并尽快修改密码：更改邮箱需要输入账号密码，你的密码可能已经泄露。验证码将于 1 小时后失效。
+                        </div>
+                    </div>
+                    <!-- Elegant Footer -->
+                    <div class="footer">
+                        <a class="footer-text" href="https://hetu-music.com">河图作品勘鉴</a>
+                        <p class="footer-text">这是一封自动发送的邮件，请勿直接回复。</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
